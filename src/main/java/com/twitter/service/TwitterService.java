@@ -50,7 +50,7 @@ public class TwitterService {
 		Configuration cfg = new Configuration();
 
         // Where do we load the templates from:
-		cfg.setDirectoryForTemplateLoading(new File("/home/pk/code/TwitterUserProfile/templates"));
+		cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Documents\\TwitterUserProfile\\templates\\"));
 
         // Some other recommended settings:
         cfg.setIncompatibleImprovements(new Version(2, 3, 20));
@@ -81,7 +81,7 @@ public class TwitterService {
         template.process(input, consoleWriter);
 
         // For the sake of example, also write output into a file:
-        Writer fileWriter = new FileWriter(new File("/home/pk/code/TwitterUserProfile" , "profiledetails.html"));
+        Writer fileWriter = new FileWriter(new File("C:\\Users\\divya\\Documents\\TwitterUserProfile\\src\\main\\webapp\\WEB-INF\\views" , "profiledetails.html"));
         try {
             template.process(input, fileWriter);
         } finally {
