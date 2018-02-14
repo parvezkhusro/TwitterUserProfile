@@ -13,55 +13,56 @@ import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.Version;
 import twitter4j.User;
-import twitter4j.Twitter;
+
 
 public class FtlConfig {
 	
-	public FtlConfig(User user){
+	public void Config_SendDataToFtl(User user){
+		
 	try {
-	@SuppressWarnings("deprecation")
-	Configuration cfg = new Configuration();
+		
+		Configuration cfg = new Configuration();
 
-    // Where do we load the templates from:
-	cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Documents\\TwitterUserProfile\\templates\\"));
+		// Where do we load the templates from:
+		cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Pictures\\TwitterUserProfile\\templates\\"));
 
-    // Some other recommended settings:
-    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
-    cfg.setDefaultEncoding("UTF-8");
-    cfg.setLocale(Locale.US);
-    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+		// Some other recommended settings:
+		cfg.setIncompatibleImprovements(new Version(2, 3, 20));
+		cfg.setDefaultEncoding("UTF-8");
+		cfg.setLocale(Locale.US);
+		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
-    // 2. Proccess template(s)
-    //
-    // You will do this for several times in typical applications.
-    // 2.1. Prepare the template input:
+		// 2. Proccess template(s)
+		
+		// You will do this for several times in typical applications.
+		// 2.1. Prepare the template input:
 
-    Map<String, String> input = new HashMap<String, String>();
+		Map<String, String> input = new HashMap<String, String>();
 
-    input.put("screenName", user.getScreenName());
-    input.put("followerCount", Integer.toString(user.getFollowersCount()));
+		input.put("screenName", user.getScreenName());
+		input.put("followerCount", Integer.toString(user.getFollowersCount()));
 
     
-    // 2.2. Get the template
+		// 2.2. Get the template
 
-    Template template = cfg.getTemplate("profiledetails.ftl");
+		Template template = cfg.getTemplate("profiledetails.ftl");
 
-    // 2.3. Generate the output
+		// 2.3. Generate the output
 
-    // Write output to the console
-    Writer consoleWriter = new OutputStreamWriter(System.out);
-    template.process(input, consoleWriter);
+		// Write output to the console
+		Writer consoleWriter = new OutputStreamWriter(System.out);
+		template.process(input, consoleWriter);
 
-    // For the sake of example, also write output into a file:
-    Writer fileWriter = new FileWriter(new File("C:\\Users\\divya\\Documents\\TwitterUserProfile\\src\\main\\webapp\\WEB-INF\\views" , "profiledetails.html"));
-    try {
-        template.process(input, fileWriter);
-    } finally {
-        fileWriter.close();
-    }
+		// For the sake of example, also write output into a file:
+		Writer fileWriter = new FileWriter(new File("C:\\Users\\divya\\Pictures\\TwitterUserProfile\\src\\main\\webapp\\WEB-INF\\views" , "profiledetails.html"));
+		try {
+			template.process(input, fileWriter);
+		} finally {
+			fileWriter.close();
+		}
 	}
 	catch(Exception e) {
 		e.printStackTrace();
 	}
-	}
+  }
 }
