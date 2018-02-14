@@ -22,17 +22,13 @@ public class OauthenticationService {
 	@Path("/callback")
 	@Produces("text/html")
 	public Response Callback(@QueryParam("oauth_verifier") String oauth_verifier) throws Exception {
-		String screenName=null;
-		System.out.println("oauthVerifier is"+oauth_verifier);
-		screenName=obj.getAccessToken(oauth_verifier);
+		obj.getAccessToken(oauth_verifier);
 		return Response.ok(new Viewable("/profiledetails.html")).build();
-		//return Response.status(200).entity(screenName).build();	
 	}
 	 @GET
 	 @Path("/welcome")
 	 @Produces("text/html")
 	 public Viewable index() {
-
 	        return new Viewable("/index");
 
 	 }   
