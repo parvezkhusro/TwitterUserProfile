@@ -8,9 +8,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
+
 
 @Path("/service")
 public class OauthenticationService {	
+	final static Logger log = Logger.getLogger(OauthenticationService.class);
 	static TwitterService obj=new TwitterService();
 	@GET
 	@Path("/signin")
@@ -24,6 +27,7 @@ public class OauthenticationService {
 		obj.getAccessToken(oauth_verifier);
 		return Response.ok(new Viewable("/profiledetails.html")).build();
 	}
+	
 	 @GET
 	 @Path("/welcome")
 	 @Produces("text/html")

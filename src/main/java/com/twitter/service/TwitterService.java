@@ -16,7 +16,8 @@ public class TwitterService {
 	User user;
 	public TwitterService(){
 		try {
-		twitter = new TwitterFactory().getInstance();
+	   TwitterFactory tf = new TwitterFactory();
+	    twitter = tf.getInstance();
 		requestToken = twitter.getOAuthRequestToken();
  	    uri = new URI(requestToken.getAuthenticationURL()); 
 		}
