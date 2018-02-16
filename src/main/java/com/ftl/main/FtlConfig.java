@@ -45,9 +45,7 @@ public class FtlConfig {
 		user.getStatus()+"\nId\t"+user.getId()+"\naccesslevel\t"+user.getAccessLevel());
 		input.put("profilepiclink", user.getOriginalProfileImageURL());
 		input.put("name", user.getName());
-		input.put("id", Long.toString(user.getId()));
 		input.put("location", user.getLocation());
-		input.put("language", user.getLang());
 		input.put("status", user.getDescription());
 		input.put("followersCount", Integer.toString(user.getFollowersCount()));
 		input.put("friendsCount", Integer.toString(user.getFriendsCount()));
