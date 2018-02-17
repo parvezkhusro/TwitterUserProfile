@@ -15,10 +15,11 @@ import org.apache.log4j.Logger;
 @Path("/service")
 public class OauthenticationService {	
 	final static Logger log = Logger.getLogger(OauthenticationService.class);
-	static TwitterService obj=new TwitterService();
+	static TwitterService obj= null;
 	@GET
 	@Path("/signin")
 	public Response Signin() {
+		obj = new TwitterService();
 		return Response.temporaryRedirect(obj.uri).build();
 	}
 	@GET
