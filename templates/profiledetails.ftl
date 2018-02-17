@@ -1,27 +1,48 @@
 <html>
 <head>
 	<style>
+		.box{
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			border-radius:10px;
+			padding-top:50px;
+			padding-left:100px;
+			padding-right:100px;
+			padding-bottom:204px;
+ 			
+			}
 		.header {
-    		background-color: DodgerBlue;
-    		text-align: center;
-    		color:white;
-    		font-size:50px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    			background-color: DodgerBlue;
+    			text-align: center;
+    			color:white;
+    			font-size:50px;
    			border:8px white;
-   			border-radius:5px;
+   			border-radius:10px;
 			width:100%;
 			height:100px;
 		}
+		.footer{
+			box-shadow:0 4px 8px 0 rgba(0.2, 0, 0, 0);
+    			background-color: DodgerBlue;
+   			border:8px white;
+   			border-radius:10px;
+			height:30px;
+			position: absolute;
+  			right: 8;
+  			bottom: 3;
+  			left: 8;
+			}
 		img{
-			padding-top:60px;
-			padding-left:300px;
+			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.3);
+			border-radius:50%;
 			float:left;
 		}
 		.profiledata{
-	    border: 1px solid lightblue;
-    	font-size:18px;
-		color:blue;
-		padding-left:55%;
-		padding-top:70px;
+	 		
+    			font-size:18px;
+			color:blue;
+			text-align: center;
+			font-family: arial;
 		}
 		body {
    			 background-color: lightblue;
@@ -31,16 +52,15 @@
 </head>
 <body>
 	<div class="header">Welcome to Twitter Profile</div>
-	<img src=${profilepiclink} alt="Profile Pic" width="500" height="600">
-	<div class="profiledata">
-	<h3>Name :           ${name}</h3>
-	<h3>Id :             ${id}</h3>
-	<h3>Status :         ${status}</h3>
-	<h3>Language :       ${language}</h3>
-	<h3>Location :       ${location}</h3>
-	<h3>FollowersCount : ${followersCount}</h3>
-	<h3>FriendsCount :   ${friendsCount}</h3>
-	<h3>TweetsCount :    ${tweetsCount}</h3>
+	<div class="box">
+		<img src=${profilepiclink} alt="Profile Pic" width="500" height="600">
+		<div class="profiledata">
+			<h3>${name}</h3>
+			<h3>${location}</h3>
+			<h3>${status}</h3>
+			<h3>I am having ${followersCount} followers,${friendsCount} friends and ${tweetsCount} tweets</h3>
+		</div>
 	</div>
+	<div class="footer"></div>
 </body>
 </html>

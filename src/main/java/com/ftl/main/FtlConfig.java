@@ -24,7 +24,7 @@ public class FtlConfig {
 		Configuration cfg = new Configuration();
 
 		// Where do we load the templates from:
-		cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Pictures\\TwitterUserProfile\\templates\\"));
+		cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Pictures\\TwitterUserProfile\\src\\main\\webapp\\WEB-INF\\views\\"));
 
 		// Some other recommended settings:
 		cfg.setIncompatibleImprovements(new Version(2, 3, 20));
@@ -38,11 +38,6 @@ public class FtlConfig {
 		// 2.1. Prepare the template input:
 
 		Map<String, String> input = new HashMap<String, String>();
-		log.debug("profile image url\t"+user.getProfileImageURL()+"\nFollowers count\t"+
-		user.getFollowersCount()+"\nFriends count\t"+user.getFriendsCount()+
-		"\nFavourites count\t"+user.getFriendsCount()+"\ndescription\t"+user.getDescription()+
-		"\nLocation\t"+user.getLocation()+"\nLanguage\t"+user.getLang()+"\nStatus\t"+
-		user.getStatus()+"\nId\t"+user.getId()+"\naccesslevel\t"+user.getAccessLevel());
 		input.put("profilepiclink", user.getOriginalProfileImageURL());
 		input.put("name", user.getName());
 		input.put("location", user.getLocation());

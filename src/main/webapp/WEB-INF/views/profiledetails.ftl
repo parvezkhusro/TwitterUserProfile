@@ -53,12 +53,12 @@
 <body>
 	<div class="header">Welcome to Twitter Profile</div>
 	<div class="box">
-		<img src=http://pbs.twimg.com/profile_images/963876475421253632/OZMvNCOs.jpg alt="Profile Pic" width="400" height="400">
+		<img src=${profilepiclink} alt="Profile Pic" width="400" height="400">
 		<div class="profiledata">
-			<h3>Divya paila</h3>
-			<h3>Hyderabad, India</h3>
-			<h3>Cheerful</h3>
-			<h3>I am having 3 followers,2 friends and 2 tweets</h3>
+			<h3>${name}</h3>
+			<h3>${location}</h3>
+			<h3>${status}</h3>
+			<h3>I am having ${followersCount} followers,${friendsCount} friends and ${tweetsCount} tweets</h3>
 		</div>
 	</div>
 	<div class="footer"></div>
