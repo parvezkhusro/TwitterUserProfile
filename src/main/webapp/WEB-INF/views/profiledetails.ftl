@@ -7,8 +7,7 @@
 			padding-top:50px;
 			padding-left:100px;
 			padding-right:100px;
-			padding-bottom:228px;
- 			
+			padding-bottom:265px;
 			}
 		.header {
 			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);

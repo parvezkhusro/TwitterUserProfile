@@ -18,7 +18,7 @@
 			padding-top:50px;
 			padding-left:100px;
 			padding-right:100px;
- 			height:71%;
+ 			height:72%;
 			}
 		.button{
 			box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
