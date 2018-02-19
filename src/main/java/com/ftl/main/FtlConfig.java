@@ -21,7 +21,7 @@ public class FtlConfig {
 			log.debug("Configuring ftl templates");
 			Configuration cfg = new Configuration();
 			//Setting path of templates
-			cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Pictures\\TwitterUserProfile\\src\\main\\webapp\\WEB-INF\\views\\"));
+			cfg.setDirectoryForTemplateLoading(new File("C:\\Users\\divya\\Pictures\\TwitterUserProfile\\templates\\"));
 			cfg.setIncompatibleImprovements(new Version(2, 3, 20));
 			cfg.setDefaultEncoding("UTF-8");
 			cfg.setLocale(Locale.US);
