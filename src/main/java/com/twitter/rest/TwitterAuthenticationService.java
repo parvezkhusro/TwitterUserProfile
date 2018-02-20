@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
 @Path("/service")
 public class TwitterAuthenticationService {	
 	final static Logger log = Logger.getLogger(TwitterAuthenticationService.class);
-	static TwitterUtils obj= null;
-	
+	static TwitterUtils twitterUtils= null;
+	URI userDetailsURI=null;
 	//This method shows starting webpage
 	@GET
 	@Path("/welcome")
@@ -30,9 +30,9 @@ public class TwitterAuthenticationService {
 	@GET
 	@Path("/signin")
 	public Response Signin() {
-		obj = new TwitterUtils();
+		twitterUtils = new TwitterUtils();
 		log.debug("Redirecting to Twitter Authentication URL");
-		return Response.temporaryRedirect(obj.uri).build();
+		return Response.temporaryRedirect(twitterUtils.twitterAuthenticationURI).build();
 	}
 	
 	/*This method calls the twitter accesstoken method by using parameter from call back url of twitter 
@@ -41,10 +41,10 @@ public class TwitterAuthenticationService {
 	@Path("/callback")
 	@Produces("text/html")
 	public Response Callback(@QueryParam("oauth_verifier") String oauth_verifier) throws Exception {
-		obj.getAccessToken(oauth_verifier);
-		URI uri1=new URI("http://localhost:8080/RESTfulExample/service/userdetails");
+		twitterUtils.getAccessToken(oauth_verifier);
+		userDetailsURI=new URI("http://localhost:8080/TwitterUserProfile/service/userdetails");
 		log.debug("Redirecting to userdetails webpage");
-		return Response.temporaryRedirect(uri1).build();
+		return Response.temporaryRedirect(userDetailsURI).build();
 	}
 	 
 	 @GET

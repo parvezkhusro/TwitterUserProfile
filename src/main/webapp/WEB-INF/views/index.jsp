@@ -66,7 +66,7 @@
 			<input type="button" class="button"onclick="onSuccess();" value="User Profile"/>
 			<script>
 				function onSuccess(){
-				window.location="http://localhost:8080/RESTfulExample/service/signin";
+				window.location="http://localhost:8080/TwitterUserProfile/service/signin";
 				}
 			</script>
 		</div>

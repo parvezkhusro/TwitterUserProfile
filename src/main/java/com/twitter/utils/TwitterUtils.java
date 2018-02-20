@@ -14,7 +14,7 @@ public class TwitterUtils {
 	final static Logger log = Logger.getLogger(TwitterUtils.class);
 	Twitter twitter;
 	RequestToken requestToken;
-	public URI uri;
+	public URI twitterAuthenticationURI;
 	AccessToken accessToken;
 	User user;
 	FtlConfig ftlConfig;
@@ -22,7 +22,7 @@ public class TwitterUtils {
 		try {
 			twitter = new TwitterFactory().getInstance();
 			requestToken = twitter.getOAuthRequestToken();
-			uri = new URI(requestToken.getAuthenticationURL()); 	
+			twitterAuthenticationURI = new URI(requestToken.getAuthenticationURL()); 	
 		}
 		catch(Exception e) {
 			e.printStackTrace();
