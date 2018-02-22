@@ -29,7 +29,7 @@ public class TwitterUtils {
 		}
 		ftlConfig=new FtlConfig();
 	}
-	public void getAccessToken(String oauthVerifier) throws Exception{
+	public String getAccessTokenAndUserDetailsURL(String oauthVerifier) throws Exception{
 		log.debug("Calling twitter4j api method for getting accesstoken");
 		try {
 			accessToken=twitter.getOAuthAccessToken(requestToken,oauthVerifier);	
@@ -37,15 +37,15 @@ public class TwitterUtils {
 		catch (TwitterException e) {
 			e.printStackTrace();
 		}
-		getUserDetails(accessToken.getScreenName());
+		return getUserDetails(accessToken.getScreenName());
 	}
-	public void getUserDetails(String screenName) {
+	public String getUserDetails(String screenName) {
 		log.debug("Calling twitter4j api method for getting user profile details using screen name of user");
 		try {
 			user = twitter.showUser(accessToken.getScreenName());
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
-		ftlConfig.ftlConfigurationAndSettingUserDataToFtlPage(user);
+		return ftlConfig.ftlConfigurationAndSettingUserDataToFtlPage(user);
 	}
 }
