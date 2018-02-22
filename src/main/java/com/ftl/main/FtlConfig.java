@@ -1,14 +1,13 @@
 package com.ftl.main;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-
 import org.apache.log4j.Logger;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -18,10 +17,10 @@ import twitter4j.User;
 
 public class FtlConfig {
 	final static Logger log = Logger.getLogger(FtlConfig.class);
-	
 	public String ftlConfigurationAndSettingUserDataToFtlPage(User user){	
 		Properties prop = new Properties();
 		InputStream inputStream = null;
+		String Result="";
 		try {
 			log.debug("Configuring ftl templates");
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -46,18 +45,13 @@ public class FtlConfig {
 			input.put("tweetsCount", Integer.toString(user.getStatusesCount()));
 			//Getting the template
 			Template template = cfg.getTemplate("profiledetails.ftl");
-			// Generating the output and writing output into html file
-			log.debug("Processing template and writing output into html file");
-			Writer fileWriter = new FileWriter(new File(prop.getProperty("htmlpath") , "profiledetails.html"));
-			try {
-				template.process(input, fileWriter);
-			} finally {
-				fileWriter.close();
-			}
+			Writer out_result = new StringWriter();
+			template.process(input, out_result);
+			Result=out_result.toString();
 		}
 		catch(Exception e) {
 				e.printStackTrace();
 		}
-		return prop.getProperty("userdetailspath");
+		return Result;
 	}
 }

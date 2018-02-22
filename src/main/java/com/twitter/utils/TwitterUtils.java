@@ -29,7 +29,7 @@ public class TwitterUtils {
 		}
 		ftlConfig=new FtlConfig();
 	}
-	public String getAccessTokenAndUserDetailsURL(String oauthVerifier) throws Exception{
+	public String getAccessTokenAndScreenName(String oauthVerifier) throws Exception{
 		log.debug("Calling twitter4j api method for getting accesstoken");
 		try {
 			accessToken=twitter.getOAuthAccessToken(requestToken,oauthVerifier);	
@@ -37,7 +37,7 @@ public class TwitterUtils {
 		catch (TwitterException e) {
 			e.printStackTrace();
 		}
-		return getUserDetails(accessToken.getScreenName());
+		return accessToken.getScreenName();
 	}
 	public String getUserDetails(String screenName) {
 		log.debug("Calling twitter4j api method for getting user profile details using screen name of user");

@@ -2,9 +2,9 @@ package com.twitter.rest;
 
 import com.sun.jersey.api.view.Viewable;
 import com.twitter.utils.*;
-
+import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Properties;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,7 +16,9 @@ import org.apache.log4j.Logger;
 public class TwitterAuthenticationService {	
 	final static Logger log = Logger.getLogger(TwitterAuthenticationService.class);
 	static TwitterUtils twitterUtils= null;
-	String userDetailsPath="";
+	String screenName="";
+	String userDetailsPage = " ";
+	
 	//This method shows starting webpage
 	@GET
 	@Path("/welcome")
@@ -41,16 +43,23 @@ public class TwitterAuthenticationService {
 	@Path("/callback")
 	@Produces("text/html")
 	public Response Callback(@QueryParam("oauth_verifier") String oauth_verifier) throws Exception {
-		userDetailsPath=twitterUtils.getAccessTokenAndUserDetailsURL(oauth_verifier);
+		screenName=twitterUtils.getAccessTokenAndScreenName(oauth_verifier);
+		Properties prop = new Properties();
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream("path.properties");
+		prop.load(inputStream);
 		log.debug("Redirecting to userdetails webpage");
-		return Response.temporaryRedirect(new URI(userDetailsPath)).build();
+		return Response.temporaryRedirect(new URI(prop.getProperty("userdetailspath"))).build();
 	}
 	 
 	 @GET
 	 @Path("/userdetails")
 	 @Produces("text/html")
-	 public Viewable profiledetails() {
+	 public String profiledetails() {
+		 twitterUtils.getUserDetails(screenName);
 		 log.debug("Showing userdetails webpage");
-	     return new Viewable("/profiledetails.html");
+		 userDetailsPage=twitterUtils.getUserDetails(screenName);
+		 return userDetailsPage;
 	 }   
+	    
 }
