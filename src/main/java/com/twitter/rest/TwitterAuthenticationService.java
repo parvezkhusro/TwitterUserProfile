@@ -1,10 +1,13 @@
 package com.twitter.rest;
 
+import com.ftl.main.LoadingPropertyFile;
 import com.sun.jersey.api.view.Viewable;
 import com.twitter.utils.*;
-import java.io.InputStream;
+import freemarker.template.TemplateException;
+import twitter4j.TwitterException;
+import java.io.IOException;
 import java.net.URI;
-import java.util.Properties;
+import java.net.URISyntaxException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,9 +19,9 @@ import org.apache.log4j.Logger;
 public class TwitterAuthenticationService {	
 	final static Logger log = Logger.getLogger(TwitterAuthenticationService.class);
 	static TwitterUtils twitterUtils= null;
-	String screenName="";
+	String screenName=" ";
 	String userDetailsPage = " ";
-	
+	LoadingPropertyFile propertyFile=null;
 	//This method shows starting webpage
 	@GET
 	@Path("/welcome")
@@ -31,8 +34,12 @@ public class TwitterAuthenticationService {
 	//This method redirects to twitter Authentication url
 	@GET
 	@Path("/signin")
-	public Response Signin() {
-		twitterUtils = new TwitterUtils();
+	public Response Signin() throws URISyntaxException{
+		try {
+			twitterUtils = new TwitterUtils();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 		log.debug("Redirecting to Twitter Authentication URL");
 		return Response.temporaryRedirect(twitterUtils.twitterAuthenticationURI).build();
 	}
@@ -42,23 +49,28 @@ public class TwitterAuthenticationService {
 	@GET
 	@Path("/callback")
 	@Produces("text/html")
-	public Response Callback(@QueryParam("oauth_verifier") String oauth_verifier) throws Exception {
-		screenName=twitterUtils.getAccessTokenAndScreenName(oauth_verifier);
-		Properties prop = new Properties();
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		InputStream inputStream = classLoader.getResourceAsStream("path.properties");
-		prop.load(inputStream);
+	public Response Callback(@QueryParam("oauth_verifier") String oauth_verifier) throws URISyntaxException, IOException{
+		try {
+			screenName=twitterUtils.getAccessTokenAndScreenName(oauth_verifier);
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		LoadingPropertyFile propertyFile=new LoadingPropertyFile();
 		log.debug("Redirecting to userdetails webpage");
-		return Response.temporaryRedirect(new URI(prop.getProperty("userdetailspath"))).build();
+		log.debug("userdetailsPath"+propertyFile.userDetailsPath);
+		return Response.temporaryRedirect(new URI(propertyFile.userDetailsPath)).build();
 	}
 	 
 	 @GET
 	 @Path("/userdetails")
 	 @Produces("text/html")
-	 public String profiledetails() {
-		 twitterUtils.getUserDetails(screenName);
+	 public String profiledetails() throws TemplateException, IOException{
+		 try {
+			userDetailsPage=twitterUtils.getUserDetails(screenName);
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 		 log.debug("Showing userdetails webpage");
-		 userDetailsPage=twitterUtils.getUserDetails(screenName);
 		 return userDetailsPage;
 	 }   
 	    
